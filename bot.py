@@ -32,7 +32,12 @@ def name(update, context):
     movie = str(update.message.text)
     print(movie)
     res=get_info(movie)
-    update.message.reply_text(res )
+    stri=""
+    for i in res:
+        for a in i:
+            stri+=a+'\n'
+        stri+='\n'
+    update.message.reply_text(stri)
    # (update.message.text)
 
 
@@ -51,11 +56,13 @@ def get_info(movie):
     pre_url=""
     count=0
     lis=[]
+    res=[]
     for tag in tags:
         if(count>2):
             break
         m=re.search('<a href=.*>(.*?)</a>',str(tag))
         try:
+            lis=[]
             link=re.search('/title/(.*?)/',str(m))
             new_url='https://www.imdb.com'+str(link.group(0))
             if new_url!=pre_url:
@@ -87,9 +94,10 @@ def get_info(movie):
                 lis.append(details)
                 pre_url=new_url
                 count+=1
+                res.append(lis)
         except :
             pass
-    return lis
+    return res
 def main():
     """Start the bot."""
     # Create the Updater and pass it your bot's token.
