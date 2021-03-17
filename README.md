@@ -15,7 +15,7 @@ A telegram Bot made using python which scrapes IMDb website and has the followin
 
        1. Go to @BotFather and click /start and type /newbot and give it a name. 
        2. Choose a username and get the token 
-3. Paste the token in a .env file (Take [.env.example](.env.example) as an example) 
+3. Paste the token in a .env file 
 
 4. Run the python script to start the bot
 
