@@ -9,7 +9,8 @@ import ssl
 import itertools
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import decouple
-
+import os
+PORT = int(os.environ.get('PORT', 5000))
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
