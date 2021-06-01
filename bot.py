@@ -94,38 +94,31 @@ def get_info(movie):
     lis = []
     res = []
     for tag in tags:
+        lis=[]
         if(count > 2):
             break
         m = re.search('<a href=.*>(.*?)</a>', str(tag))
         try:
-            lis = []
-            link = re.search('/title/(.*?)/', str(m))
-            new_url = 'https://www.imdb.com'+str(link.group(0))
-            if new_url != pre_url:
-                html = requests.get(new_url)
-                soup_each_title = BeautifulSoup(html.text, "html.parser")
-                movie_title = soup_each_title.find(
-                    'title').string.replace('- IMDb', ' ')
-                anchor = soup_each_title('a')
-                genre_string = "Genre : "
-                for each in anchor:
-                    genre = re.search(
-                        '<a href=\"/search/title\?genres=.*> (.*?)</a>', str(each))
-                    try:
-                        genre_string += genre.group(1)+' '
-                    except:
-                        pass
-                strong_tag = soup_each_title('strong')
-                for i in strong_tag:
-                    rating = re.search('<strong title=\"(.*?) based', str(i))
-                    try:
-                        rating_string = "IMDb Rating : "+rating.group(1)
-                    except:
-                        pass
+            link=re.search('/title/(.*?)/',str(m))
+            new_url='https://www.imdb.com'+str(link.group(0))
+            if new_url!=pre_url:
+                html=requests.get(new_url)
+                soup2=BeautifulSoup(html.text,"html.parser")
+                movietitle=soup2.find('title').string.replace('- IMDb',' ')
+                span=soup2.find_all('span',"ipc-chip__text")
+                genrestring="Genre : "
+                g_count =0
+                for sp in span:
+                    genrestring+=sp.text+' '
+                    g_count+=1
+                    if(g_count>2):
+                        break
+                span_rate=soup2.find_all('span','AggregateRatingButton__RatingScore-sc-1il8omz-1 fhMjqK')
+                rstring="IMDb Rating : "+span_rate[0].text
                 details = "For more details : "+new_url
-                lis.append(movie_title)
-                lis.append(genre_string)
-                lis.append(rating_string)
+                lis.append(movietitle)
+                lis.append(genrestring)
+                lis.append(rstring)
                 lis.append(details)
                 pre_url = new_url
                 count += 1
