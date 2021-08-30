@@ -114,7 +114,7 @@ def get_info(movie):
                     g_count+=1
                     if(g_count>2):
                         break
-                span_rate=soup2.find_all('span','AggregateRatingButton__RatingScore-sc-1il8omz-1 fhMjqK')
+                span_rate=soup2.find_all('span','AggregateRatingButton__RatingScore-sc-1ll29m0-1 iTLWoV')
                 rstring="IMDb Rating : "+span_rate[0].text
                 details = "For more details : "+new_url
                 lis.append(movietitle)
