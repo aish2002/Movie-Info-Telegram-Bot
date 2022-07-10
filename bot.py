@@ -106,7 +106,7 @@ def get_info(movie):
                 html=requests.get(new_url)
                 soup2=BeautifulSoup(html.text,"html.parser")
                 movietitle=soup2.find('title').string.replace('- IMDb',' ')
-                span=soup2.find_all('span',"ipc-chip__text")
+                span=soup2.find_all('li',"ipc-chip__text")
                 genrestring="Genre : "
                 g_count =0
                 for sp in span:
@@ -114,7 +114,7 @@ def get_info(movie):
                     g_count+=1
                     if(g_count>2):
                         break
-                span_rate=soup2.find_all('span','AggregateRatingButton__RatingScore-sc-1ll29m0-1 iTLWoV')
+                span_rate=soup2.find_all('span','jGRxWM')
                 rstring="IMDb Rating : "+span_rate[0].text
                 details = "For more details : "+new_url
                 lis.append(movietitle)
